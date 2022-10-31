@@ -1,7 +1,8 @@
-package ru.tinkoff.tlearn
+package ru.tinkoff.tlearn.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.tinkoff.tlearn.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
