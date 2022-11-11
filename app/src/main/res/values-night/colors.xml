@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray_50">#80FFFFFF</color>
+    <color name="gray_25">#40FFFFFF</color>
+    <color name="gray_15">#40FFFFFF</color>
+    <color name="pastel_red_background">#33FF0033</color>
+</resources>
