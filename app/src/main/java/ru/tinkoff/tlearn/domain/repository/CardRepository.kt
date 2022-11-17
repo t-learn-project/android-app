@@ -1,15 +1,11 @@
 package ru.tinkoff.tlearn.domain.repository
 
-import androidx.lifecycle.LiveData
-import ru.tinkoff.tlearn.domain.entity.Card
-import ru.tinkoff.tlearn.domain.entity.CardAction
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
+import ru.tinkoff.tlearn.domain.models.Card
 
 interface CardRepository {
 
-    fun getCardsToStudy(count: Int): LiveData<List<Card>>
-
-    fun doCardAction(cardId: Int, action: CardAction)
-
-    fun syncCardActions()
+    fun getCards(): Flow<PagingData<Card>>
 
 }
