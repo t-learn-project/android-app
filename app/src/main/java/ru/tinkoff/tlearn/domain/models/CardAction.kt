@@ -1,4 +1,4 @@
-package ru.tinkoff.tlearn.domain.entity
+package ru.tinkoff.tlearn.domain.models
 
 enum class CardAction {
     KNOW,

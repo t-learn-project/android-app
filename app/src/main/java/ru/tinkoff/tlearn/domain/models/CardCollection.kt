@@ -1,4 +1,4 @@
-package ru.tinkoff.tlearn.domain.entity
+package ru.tinkoff.tlearn.domain.models
 
 data class CardCollection(
     val id: Int,
