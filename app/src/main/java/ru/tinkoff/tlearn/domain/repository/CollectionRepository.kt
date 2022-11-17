@@ -1,7 +1,7 @@
 package ru.tinkoff.tlearn.domain.repository
 
 import androidx.lifecycle.LiveData
-import ru.tinkoff.tlearn.domain.entity.CardCollection
+import ru.tinkoff.tlearn.domain.models.CardCollection
 
 interface CollectionRepository {
 
