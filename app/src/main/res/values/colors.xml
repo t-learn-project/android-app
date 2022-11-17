@@ -10,8 +10,13 @@
     <color name="gray_50">#80000000</color>
     <color name="gray_25">#40000000</color>
     <color name="gray_15">#26000000</color>
+    <color name="gray_8">#14000000</color>
+    <color name="gray_5">#0D000000</color>
     <color name="pastel_red_background">#1AFF0033</color>
-    <color name="pastel_red_text">#F2FF375B</color>
+    <color name="pastel_red_text">#FF375B</color>
     <color name="pastel_green_background">#2671D300</color>
-    <color name="pastel_green_text">#F271C415</color>
+    <color name="pastel_green_text">#71C415</color>
+    <color name="graphite">#141414</color>
+    <color name="dark_graphite">#212121</color>
+    <color name="light_gray">#f4f4f4</color>
 </resources>

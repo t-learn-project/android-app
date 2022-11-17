@@ -12,5 +12,28 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/graphite</item>
+        <item name="actionBarStyle">@style/Theme.TLearn.ActionBar</item>
+    </style>
+
+    <style name="Theme.TLearn.ActionBar" parent="Widget.Material3.ActionBar.Solid">
+        <item name="background">@color/dark_graphite</item>
+    </style>
+
+    <style name="Theme.TLearn.Card">
+        <item name="cornerRadius">16dp</item>
+        <item name="background_Color">@color/dark_graphite</item>
+        <item name="shadow0_Outer_Blur">8dp</item>
+        <item name="shadow0_Outer_Alpha">0.08</item>
+        <item name="shadow_Outer_Area">8dp</item>
+    </style>
+
+    <style name="Theme.TLearn.Card.Divider">
+        <item name="android:background">@color/graphite</item>
+    </style>
+
+    <style name="Theme.TLearn.CardActionBar" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/dark_graphite</item>
+        <item name="cardCornerRadius">16dp</item>
     </style>
 </resources>

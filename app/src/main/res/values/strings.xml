@@ -1,7 +1,34 @@
 <resources>
     <string name="app_name">T-Learn</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="do_not_know">Don\'t know</string>
-    <string name="know">Know</string>
+
+    <!-- User actions on card -->
+    <string name="do_not_know">I don\'t know</string>
+    <string name="know">I know</string>
+
+    <!-- Word types -->
+    <string name="noun">Noun</string>
+    <string name="pronoun">Pronoun</string>
+    <string name="verb">Verb</string>
+    <string name="adjective">Adjective</string>
+    <string name="adverb">Adverb</string>
+    <string name="preposition">Preposition</string>
+    <string name="conjunction">Conjunction</string>
+    <string name="interjection">Interjection</string>
+    <string name="exclamation">Exclamation</string>
+
+    <!-- Card states -->
+    <string name="new_word">New word</string>
+    <string name="review_five_minutes">In progress (review 1)</string>
+    <string name="review_one_hour">In progress (review 2)</string>
+    <string name="review_one_day">In progress (review 3)</string>
+    <string name="review_one_week">In progress (review 4)</string>
+    <string name="review_one_month">In progress (review 5)</string>
+    <string name="review_three_months">In progress (review 6)</string>
+    <string name="learned_word">Learned word</string>
+    <string name="known_word">Already known</string>
+
+    <!-- Card placeholder -->
+    <string name="loading">Loading...</string>
+
 </resources>
