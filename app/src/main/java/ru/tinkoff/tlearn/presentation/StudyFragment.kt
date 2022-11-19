@@ -9,13 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager
-import com.yuyakaido.android.cardstackview.CardStackListener
-import com.yuyakaido.android.cardstackview.Direction
-import com.yuyakaido.android.cardstackview.Duration
-import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
+import com.yuyakaido.android.cardstackview.*
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import ru.tinkoff.tlearn.databinding.FragmentStudyBinding
 import ru.tinkoff.tlearn.di.ContextModule
 import ru.tinkoff.tlearn.di.DaggerAppComponent
@@ -140,9 +135,9 @@ class StudyFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+        lifecycleScope.launchWhenCreated {
             viewModel.getCards().collectLatest {
-                cardStackAdapter.submitData(it)
+                cardStackAdapter.submitData(lifecycle, it)
             }
         }
     }

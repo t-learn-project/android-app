@@ -19,8 +19,8 @@ class CardRepositoryImpl @Inject constructor(
             config = PagingConfig(
                 pageSize = BATCH_SIZE,
                 enablePlaceholders = false,
-                maxSize = MAX_CARD_COUNT,
-                prefetchDistance = PREFETCH_DISTANCE
+                prefetchDistance = PREFETCH_DISTANCE,
+                initialLoadSize = INITIAL_LOAD_SIZE
             ),
             pagingSourceFactory = {
                 CardPagingSource(service)
@@ -29,9 +29,9 @@ class CardRepositoryImpl @Inject constructor(
     }
 
     companion object {
-        const val BATCH_SIZE = 3
-        const val MAX_CARD_COUNT = 50
+        const val BATCH_SIZE = 10
         const val PREFETCH_DISTANCE = 1
+        const val INITIAL_LOAD_SIZE = 10
     }
 
 }

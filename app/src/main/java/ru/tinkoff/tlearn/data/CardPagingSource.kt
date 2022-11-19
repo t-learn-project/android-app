@@ -6,7 +6,7 @@ import ru.tinkoff.tlearn.domain.models.Card
 
 class CardPagingSource(
     private val service: MockCardService
-): PagingSource<Int, Card>() {
+) : PagingSource<Int, Card>() {
 
     companion object {
         const val STARTING_PAGE_INDEX = 0
@@ -33,9 +33,17 @@ class CardPagingSource(
                 pageIndex + (params.loadSize / CardRepositoryImpl.BATCH_SIZE)
             }
 
+        val prevKey =
+            if (pageIndex == STARTING_PAGE_INDEX) {
+                null
+            } else {
+                pageIndex - 1
+            }
+
+
         return LoadResult.Page(
             data = cards,
-            prevKey = null,
+            prevKey = prevKey,
             nextKey = nextKey
         )
     }
