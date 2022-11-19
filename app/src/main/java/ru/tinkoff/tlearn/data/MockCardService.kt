@@ -129,7 +129,7 @@ class MockCardService @Inject constructor() {
             )
         )
 
-        for (i in 11..50) {
+        for (i in 11..51) {
             testCollection.add(
                 Card(
                     id = i,
@@ -153,7 +153,7 @@ class MockCardService @Inject constructor() {
                 currentChunk.add(testCollection[i])
         }
 
-        return currentChunk
+        return currentChunk.toList()
     }
 
 //    fun doCardAction(cardId: Int, action: CardAction) {
