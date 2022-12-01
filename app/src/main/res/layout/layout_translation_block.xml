@@ -10,6 +10,7 @@
         style="@style/Theme.TLearn.Card.WordTranslation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hyphenationFrequency="normal"
         tools:text="Подушка" />
 
 </LinearLayout>

@@ -30,5 +30,7 @@
 
     <!-- Card placeholder -->
     <string name="loading">Loading...</string>
+    <string name="expand_card_button">Expand card button</string>
+    <string name="word_state_icon">Word state icon</string>
 
 </resources>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.sinaseyfi.advancedcardview.AdvancedCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/card_container"
+        android:id="@+id/card_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,7 +19,8 @@
             android:layout_marginTop="14dp"
             android:src="@drawable/ic_status_new_word"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/word_state_icon" />
 
         <TextView
             android:id="@+id/tv_word_state"
@@ -33,16 +33,56 @@
             app:layout_constraintTop_toTopOf="@+id/ic_word_state"
             tools:text="Новое слово" />
 
+
         <include
-            android:id="@+id/word_block"
+            android:id="@+id/word_block_0"
             layout="@layout/layout_word_block"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="40dp"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_word_state"
             app:layout_constraintTop_toBottomOf="@+id/tv_word_state" />
+
+        <include
+            android:id="@+id/translation_block_0"
+            layout="@layout/layout_translation_block"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_word_state"
+            app:layout_constraintTop_toBottomOf="@+id/tv_word_state" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/placeholder_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/placeholder_block"
+                layout="@layout/layout_placeholder_block"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="word_block_0,translation_block_0"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="230dp" />
 
         <View
             android:id="@+id/divider"
@@ -50,28 +90,41 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="32dp"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/word_block" />
+            app:layout_constraintTop_toBottomOf="@+id/barrier" />
 
         <include
-            android:id="@+id/translation_block"
+            android:id="@+id/translation_block_1"
             layout="@layout/layout_translation_block"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="40dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_word_state"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <include
+            android:id="@+id/word_block_1"
+            layout="@layout/layout_word_block"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="40dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/word_block"
+            app:layout_constraintStart_toStartOf="@+id/tv_word_state"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
+
 
         <ImageButton
             android:id="@+id/btn_expand_card"
             style="@style/Theme.TLearn.Card.ShowTranslationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/expand_card_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,5 +132,7 @@
             app:layout_constraintVertical_bias="0.6"
             app:srcCompat="@drawable/ic_outline_eye" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.sinaseyfi.advancedcardview.AdvancedCardView>

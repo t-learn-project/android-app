@@ -5,6 +5,7 @@
     <color name="gray_15">#40FFFFFF</color>
     <color name="gray_8">#2EFFFFFF</color>
     <color name="gray_5">#26FFFFFF</color>
+    <color name="placeholder">#4B4B4B</color>
     <color name="pastel_red_text">#F2FF375B</color>
     <color name="pastel_green_background">#1471D300</color>
     <color name="pastel_red_background">#1AFF0033</color>

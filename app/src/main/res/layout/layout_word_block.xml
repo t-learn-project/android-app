@@ -10,6 +10,7 @@
         style="@style/Theme.TLearn.Card.Word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hyphenationFrequency="normal"
         tools:text="Pillow" />
 
     <TextView
@@ -18,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:hyphenationFrequency="normal"
         tools:text="[ˈpɪləʊ]" />
 
     <TextView
@@ -26,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:hyphenationFrequency="normal"
         tools:text="Сущ." />
 
 </LinearLayout>

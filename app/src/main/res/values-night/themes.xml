@@ -24,7 +24,7 @@
         <item name="cornerRadius">16dp</item>
         <item name="background_Color">@color/dark_graphite</item>
         <item name="shadow0_Outer_Blur">8dp</item>
-        <item name="shadow0_Outer_Alpha">0.08</item>
+        <item name="shadow0_Outer_Alpha">0.20</item>
         <item name="shadow_Outer_Area">8dp</item>
     </style>
 
