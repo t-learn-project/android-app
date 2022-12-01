@@ -3,8 +3,9 @@ package ru.tinkoff.tlearn.data
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import ru.tinkoff.tlearn.domain.models.Card
+import javax.inject.Inject
 
-class CardPagingSource(
+class CardPagingSource @Inject constructor(
     private val service: MockCardService
 ) : PagingSource<Int, Card>() {
 
@@ -39,7 +40,6 @@ class CardPagingSource(
             } else {
                 pageIndex - 1
             }
-
 
         return LoadResult.Page(
             data = cards,

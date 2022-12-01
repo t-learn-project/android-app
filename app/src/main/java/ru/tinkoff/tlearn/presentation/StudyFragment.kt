@@ -4,63 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.yuyakaido.android.cardstackview.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import ru.tinkoff.tlearn.databinding.FragmentStudyBinding
-import ru.tinkoff.tlearn.di.ContextModule
-import ru.tinkoff.tlearn.di.DaggerAppComponent
 import javax.inject.Inject
+import javax.inject.Named
 
-
+@AndroidEntryPoint
 class StudyFragment : Fragment() {
 
-    private val component by lazy {
-        val application = requireActivity().application
+    @Inject lateinit var cardStackAdapter: CardStackAdapter
+    @Inject lateinit var cardStackLayoutManager: CardStackLayoutManager
+    private val viewModel: StudyViewModel by viewModels()
 
-        DaggerAppComponent.builder()
-            .contextModule(ContextModule(application))
-            .build()
-    }
+    @Inject @Named("PositiveSwipeSetting")
+    lateinit var positiveAnimationSetting: SwipeAnimationSetting
+
+    @Inject @Named("NegativeSwipeSetting")
+    lateinit var negativeAnimationSetting: SwipeAnimationSetting
 
     private var _binding: FragmentStudyBinding? = null
     private val binding: FragmentStudyBinding
         get() = _binding ?: throw RuntimeException("FragmentStudyBinding is null")
-
-    @Inject
-    lateinit var cardStackAdapter: CardStackAdapter
-
-    @Inject
-    lateinit var viewModelFactory: StudyViewModelFactory
-
-    private lateinit var cardStackLayoutManager: CardStackLayoutManager
-
-    private val viewModel: StudyViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[StudyViewModel::class.java]
-    }
-
-    private val swipeAnimationSetting = SwipeAnimationSetting.Builder()
-        .setDuration(Duration.Slow.duration)
-        .setInterpolator(LinearInterpolator())
-
-    private val positiveAnimationSetting = swipeAnimationSetting
-        .setDirection(Direction.Left)
-        .build()
-
-    private val negativeAnimationSetting = swipeAnimationSetting
-        .setDirection(Direction.Right)
-        .build()
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        component.inject(this)
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,9 +48,8 @@ class StudyFragment : Fragment() {
         observeViewModel()
     }
 
-
     private fun setupCardStack() {
-        cardStackLayoutManager = CardStackLayoutManager(context, object : CardStackListener {
+        cardStackLayoutManager.cardStackListener = object : CardStackListener {
             override fun onCardDragging(direction: Direction?, ratio: Float) {
             }
 
@@ -99,18 +68,6 @@ class StudyFragment : Fragment() {
             override fun onCardDisappeared(view: View?, position: Int) {
             }
 
-        })
-
-        cardStackLayoutManager.apply {
-            setVisibleCount(2)
-            setMaxDegree(15.0f)
-            setDirections(listOf(
-                Direction.Right,
-                Direction.Left
-            ))
-            setCanScrollVertical(false)
-            setScaleInterval(0.9f)
-            setSwipeThreshold(0.3f)
         }
 
         binding.cardStackView.layoutManager = cardStackLayoutManager
