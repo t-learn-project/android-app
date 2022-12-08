@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.naloaty:CardStackView:3765364673'
+    implementation 'com.github.naloaty:CardStackView:a239626303'
     implementation 'com.google.dagger:hilt-android:2.44.2'
     kapt 'com.google.dagger:hilt-compiler:2.44.2'
     implementation 'com.github.sina-seyfi:AdvancedCardView:1.0.1'
