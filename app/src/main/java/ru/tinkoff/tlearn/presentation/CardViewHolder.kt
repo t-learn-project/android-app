@@ -2,119 +2,93 @@ package ru.tinkoff.tlearn.presentation
 
 import android.transition.Fade
 import android.transition.TransitionManager
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.shimmer.ShimmerFrameLayout
-import ru.tinkoff.tlearn.R
+import ru.tinkoff.tlearn.databinding.LayoutCardBinding
+import ru.tinkoff.tlearn.databinding.LayoutTranslationBlockBinding
+import ru.tinkoff.tlearn.databinding.LayoutWordBlockBinding
 import ru.tinkoff.tlearn.domain.models.Card
 
 class WordBlockViewHolder(
-    private val root: ViewGroup
+    private val binding: LayoutWordBlockBinding
 ) {
-    private val tvWord = root.findViewById<TextView>(R.id.tv_word)
-    private val tvWordTranscription = root.findViewById<TextView>(R.id.tv_word_transcription)
-    private val tvWordType = root.findViewById<TextView>(R.id.tv_word_type)
 
-    fun bindTo(card: Card) {
+    fun bindTo(card: Card) = with(binding) {
         tvWord.text = card.word
         tvWordTranscription.text = card.transcription
         tvWordType.text = root.resources.getString(card.wordType.stringResId)
     }
 
-    fun hide() {
+    fun hide() = with(binding) {
         root.isVisible = false
     }
 
-    fun show() {
+    fun show() = with(binding) {
         root.isVisible = true
     }
 }
 
 class TranslationBlockViewHolder(
-    private val root: ViewGroup
+    private val binding: LayoutTranslationBlockBinding
 ) {
-    private val tvWordTranslation = root.findViewById<TextView>(R.id.tv_word_translation)
 
-    fun bindTo(card: Card) {
+    fun bindTo(card: Card) = with(binding) {
         tvWordTranslation.text = card.translation.joinToString(", ")
     }
 
-    fun hide() {
+    fun hide() = with(binding) {
         root.isVisible = false
     }
 
-    fun show() {
+    fun show() = with(binding) {
         root.isVisible = true
     }
 }
 
 class CardViewHolder(
-    private val root: View
-): RecyclerView.ViewHolder(root) {
-    private val icWordState = root.findViewById<ImageView>(R.id.ic_word_state)
-    private val tvWordState = root.findViewById<TextView>(R.id.tv_word_state)
-
-    private val placeholderBlock = root.findViewById<ViewGroup>(R.id.placeholder_block)
-    private val placeholderContainer = root.findViewById<ShimmerFrameLayout>(R.id.placeholder_container)
-
-    // Visible before card expanded
-    private val wordBlock0 = root.findViewById<ViewGroup>(R.id.word_block_0)
-    private val translationBlock0 = root.findViewById<ViewGroup>(R.id.translation_block_0)
-    // Visible after card expanded
-    private val wordBlock1 = root.findViewById<ViewGroup>(R.id.word_block_1)
-    private val translationBlock1 = root.findViewById<ViewGroup>(R.id.translation_block_1)
-
-    private val wordHolder0 = WordBlockViewHolder(wordBlock0)
-    private val wordHolder1 = WordBlockViewHolder(wordBlock1)
-    private val translationHolder0 = TranslationBlockViewHolder(translationBlock0)
-    private val translationHolder1 = TranslationBlockViewHolder(translationBlock1)
-
-    private val divider = root.findViewById<View>(R.id.divider)
-    private val btnExpand = root.findViewById<ImageButton>(R.id.btn_expand_card)
-    private val cardLayout = root.findViewById<ConstraintLayout>(R.id.card_layout)
-
-    private var item: Card? = null
+    private val binding: LayoutCardBinding
+): RecyclerView.ViewHolder(binding.root) {
 
     companion object {
         const val EXPAND_ANIMATION_DURATION = 250L
     }
 
+    var onExpandCardClickListener: (() -> Unit)? = null
+
+    private val wordHolder0 = WordBlockViewHolder(binding.wordBlock0)
+    private val wordHolder1 = WordBlockViewHolder(binding.wordBlock1)
+    private val translationHolder0 = TranslationBlockViewHolder(binding.translationBlock0)
+    private val translationHolder1 = TranslationBlockViewHolder(binding.translationBlock1)
+
+    private var _item: Card? = null
     private var isDirectCard: Boolean = true
 
+    val item: Card?
+        get() = _item
 
     init {
-        btnExpand.setOnClickListener {
-            expandCard()
+        binding.btnExpandCard.setOnClickListener {
+            onExpandCardClickListener?.invoke()
         }
     }
 
     // Items might be null if they are not paged in yet
     fun bindTo(card: Card?) {
         prepareCard()
-        item = card
+        _item = card
 
         if (card != null) {
             bindWordStateTo(card)
-            showExpandButton()
 
             if (card.reversed) {
                 bindAsReversedTo(card)
             } else {
                 bindAsDirectTo(card)
             }
-
-        } else {
-            showLoadingPlaceholder()
         }
     }
 
-    private fun bindWordStateTo(card: Card) {
+    private fun bindWordStateTo(card: Card) = with(binding) {
         icWordState.isVisible = true
         tvWordState.isVisible = true
         icWordState.setImageResource(card.state.iconResId)
@@ -135,44 +109,32 @@ class CardViewHolder(
         isDirectCard = true
     }
 
-    private fun showLoadingPlaceholder() {
-        placeholderBlock.isVisible = true
-        placeholderContainer.showShimmer(true)
-    }
 
-    private fun showExpandButton() {
-        btnExpand.isEnabled = true
-        btnExpand.isVisible = true
-    }
-
-    private fun prepareCard() {
+    private fun prepareCard() = with(binding) {
         icWordState.isVisible = false
         tvWordState.isVisible = false
         divider.isVisible = false
-        btnExpand.isEnabled = false
-        btnExpand.isVisible = false
-        placeholderContainer.hideShimmer()
-        placeholderBlock.isVisible = false
-
+        btnExpandCard.isVisible = true
         wordHolder0.hide()
         wordHolder1.hide()
         translationHolder0.hide()
         translationHolder1.hide()
     }
 
-    private fun expandCard() {
+    fun expandCard() = with(binding) {
         val transition = Fade().apply {
             duration = EXPAND_ANIMATION_DURATION
             addTarget(divider)
-            addTarget(wordBlock0)
-            addTarget(wordBlock1)
-            addTarget(translationBlock0)
-            addTarget(translationBlock1)
+            addTarget(wordBlock0.root)
+            addTarget(wordBlock1.root)
+            addTarget(translationBlock0.root)
+            addTarget(translationBlock1.root)
         }
 
         TransitionManager.beginDelayedTransition(cardLayout, transition)
+
         divider.isVisible = true
-        btnExpand.isVisible = false
+        btnExpandCard.isVisible = false
 
         if (isDirectCard) {
             translationHolder1.show()

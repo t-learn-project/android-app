@@ -23,7 +23,13 @@ class CardPagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Card> {
         val pageIndex = params.key ?: STARTING_PAGE_INDEX
         val offset = pageIndex * params.loadSize
-        val cards = service.loadCards(offset, params.loadSize)
+
+        val cards = try {
+            service.loadCardsToStudy(offset, params.loadSize)
+        } catch (e: RuntimeException) {
+            return LoadResult.Error(e)
+        }
+
 
         val nextKey =
             if (cards.size < params.loadSize) {
@@ -44,7 +50,7 @@ class CardPagingSource @Inject constructor(
         return LoadResult.Page(
             data = cards,
             prevKey = prevKey,
-            nextKey = nextKey
+            nextKey = nextKey,
         )
     }
 }

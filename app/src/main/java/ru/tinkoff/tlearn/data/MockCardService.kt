@@ -1,12 +1,14 @@
 package ru.tinkoff.tlearn.data
 
 
+import kotlinx.coroutines.delay
 import ru.tinkoff.tlearn.domain.models.Card
 import ru.tinkoff.tlearn.domain.models.CardState
 import ru.tinkoff.tlearn.domain.models.WordType
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 @Singleton
 class MockCardService @Inject constructor() {
@@ -129,29 +131,34 @@ class MockCardService @Inject constructor() {
             )
         )
 
-        for (i in 11..51) {
-            testCollection.add(
-                Card(
-                    id = i,
-                    word = "word $i",
-                    wordType = WordType.NOUN,
-                    transcription = "[word $i]",
-                    translation = listOf("слово $i"),
-                    state = CardState.NEW,
-                    reversed = Random.nextBoolean(),
-                    action = null
-                )
-            )
-        }
+//        for (i in 11..51) {
+//            testCollection.add(
+//                Card(
+//                    id = i,
+//                    word = "word $i",
+//                    wordType = WordType.NOUN,
+//                    transcription = "[word $i]",
+//                    translation = listOf("слово $i"),
+//                    state = CardState.NEW,
+//                    reversed = Random.nextBoolean(),
+//                    action = null
+//                )
+//            )
+//        }
     }
 
-    fun loadCards(offset: Int, count: Int): List<Card> {
+    suspend fun loadCardsToStudy(offset: Int, count: Int): List<Card> {
         currentChunk.clear()
 
         for (i in offset until offset + count) {
             if (i < testCollection.size)
                 currentChunk.add(testCollection[i])
         }
+
+        delay(Random.nextInt(1000..3000).toLong())
+
+        if (Random.nextFloat() < 0.3)
+            throw RuntimeException("Could not load cards: random decided so")
 
         return currentChunk.toList()
     }

@@ -6,6 +6,5 @@ import ru.tinkoff.tlearn.domain.models.Card
 
 interface CardRepository {
 
-    fun getCards(): Flow<PagingData<Card>>
-
+    fun getCardsToStudy(): Flow<PagingData<Card>>
 }

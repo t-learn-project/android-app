@@ -29,8 +29,13 @@
     <string name="known_word">Already known</string>
 
     <!-- Card placeholder -->
-    <string name="loading">Loading...</string>
     <string name="expand_card_button">Expand card button</string>
     <string name="word_state_icon">Word state icon</string>
+    <string name="could_not_load_card">Something went wrong</string>
+    <string name="retry">Retry</string>
+    <string name="no_more_cards">No more cards</string>
+    <string name="well_done">Well done!</string>
+    
+    <string name="no_more_cards_description">At this point there are no words to explore. Come back later!</string>
 
 </resources>
